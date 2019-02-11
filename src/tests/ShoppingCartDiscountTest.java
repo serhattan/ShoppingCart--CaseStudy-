@@ -1,10 +1,9 @@
 package tests;
 
-import main.DiscountType.Amount;
-import main.DiscountType.DiscountTypeInterface;
-import main.DiscountType.Rate;
 import main.*;
-import org.junit.jupiter.api.AfterEach;
+import main.discounttype.Amount;
+import main.discounttype.DiscountTypeInterface;
+import main.discounttype.Rate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,7 @@ class ShoppingCartDiscountTest {
     private DiscountTypeInterface discountTypeAmount;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         food = new Category("food");
         fruit = new Category("fruit", food);
         apple = new Product("apple", 10.0, fruit);
@@ -30,94 +29,83 @@ class ShoppingCartDiscountTest {
         discountTypeAmount = new Amount();
     }
 
-    @AfterEach
-    public void tearDown() {
-        food = null;
-        fruit = null;
-        apple = null;
-        banana = null;
-        discountTypeRate = null;
-        discountTypeAmount = null;
-        shoppingCart = null;
-    }
-
     @Test
-    public void testRateDiscountApplied() {
+    void testRateDiscountApplied() {
         Campaign campaign = new Campaign(fruit, 10, 4, discountTypeRate);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(5.4, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testAmountDiscountApplied() {
+    void testAmountDiscountApplied() {
         Campaign campaign = new Campaign(fruit, 10, 4, discountTypeAmount);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(10, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testRateDiscountNotApplied() {
+    void testRateDiscountNotApplied() {
         Campaign campaign = new Campaign(fruit, 10, 5, discountTypeRate);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(0, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testAmountDiscountNotApplied() {
+    void testAmountDiscountNotApplied() {
         Campaign campaign = new Campaign(fruit, 10, 5, discountTypeAmount);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(0, shoppingCart.getCampaignDiscount());
     }
 
-    private void add3AppleAnd2BananaIntoCart() {
+    private void addThreeAppleAndTwoBananaIntoCart() {
         shoppingCart.addItem(apple, 3);
         shoppingCart.addItem(banana, 2);
     }
 
     @Test
-    public void testParentCategoryRateDiscountApplied() {
+    void testParentCategoryRateDiscountApplied() {
         Campaign campaign = new Campaign(food, 10, 4, discountTypeRate);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(5.4, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testParentCategoryAmountDiscountApplied() {
+    void testParentCategoryAmountDiscountApplied() {
         Campaign campaign = new Campaign(food, 10, 4, discountTypeAmount);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(10, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testParentCategoryDiscountNotApplied() {
+    void testParentCategoryDiscountNotApplied() {
         Campaign campaign = new Campaign(food, 10, 5, discountTypeRate);
 
-        this.add3AppleAnd2BananaIntoCart();
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.applyDiscounts(campaign);
 
         assertEquals(0, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testBestDiscountApplied() {
+    void testBestDiscountApplied() {
         Category technology = new Category("technology");
         Product smartWatch = new Product("smartWatch", 200, technology);
         Product powerBank = new Product("powerBank", 50, technology);
@@ -131,11 +119,11 @@ class ShoppingCartDiscountTest {
         shoppingCart.addItem(powerBank, 4);
         shoppingCart.applyDiscounts(campaign1, campaign2);
 
-        assertEquals(66,shoppingCart.getCampaignDiscount());
+        assertEquals(66, shoppingCart.getCampaignDiscount());
     }
 
     @Test
-    public void testRateCouponApplied() {
+    void testRateCouponApplied() {
         Coupon coupon = new Coupon(100, 5, discountTypeRate);
 
         shoppingCart.addItem(apple, 10);
@@ -146,7 +134,7 @@ class ShoppingCartDiscountTest {
     }
 
     @Test
-    public void testAmountCouponApplied() {
+    void testAmountCouponApplied() {
         Coupon coupon = new Coupon(100, 32, discountTypeAmount);
 
         shoppingCart.addItem(apple, 10);
@@ -157,7 +145,7 @@ class ShoppingCartDiscountTest {
     }
 
     @Test
-    public void testCouponNotApplied() {
+    void testCouponNotApplied() {
         Coupon coupon = new Coupon(100, 32, discountTypeAmount);
 
         shoppingCart.addItem(apple, 5);
@@ -168,7 +156,7 @@ class ShoppingCartDiscountTest {
     }
 
     @Test
-    public void testTotalAmountAfterCampaign() {
+    void testTotalAmountAfterCampaign() {
         Campaign campaign = new Campaign(fruit, 30, 3, discountTypeRate);
 
         shoppingCart.addItem(apple, 5);
@@ -179,7 +167,7 @@ class ShoppingCartDiscountTest {
     }
 
     @Test
-    public void testTotalAmountAfterCoupon() {
+    void testTotalAmountAfterCoupon() {
         Coupon coupon = new Coupon(100, 5, discountTypeAmount);
 
         shoppingCart.addItem(apple, 8);
@@ -190,7 +178,7 @@ class ShoppingCartDiscountTest {
     }
 
     @Test
-    public void testTotalAmountAfterDiscount() {
+    void testTotalAmountAfterDiscount() {
         Coupon coupon = new Coupon(50, 5, discountTypeAmount);
         Campaign campaign = new Campaign(fruit, 30, 3, discountTypeRate);
 

@@ -2,7 +2,6 @@ package tests;
 
 import main.Category;
 import main.Product;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,29 +14,23 @@ class ProductTest {
     private Product apple;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         food = new Category("food");
         apple = new Product(ProductTest.PRODUCT_TITLE, ProductTest.PRODUCT_PRICE, food);
     }
 
-    @AfterEach
-    public void tearDown() {
-        food = null;
-        apple = null;
-    }
-
     @Test
-    public void testIsTitleCorrectWhenInitialize() {
+    void testIsTitleCorrectWhenInitialize() {
         assertEquals(ProductTest.PRODUCT_TITLE, apple.getTitle());
     }
 
     @Test
-    public void testIsPriceCorrectWhenInitialize() {
+    void testIsPriceCorrectWhenInitialize() {
         assertEquals(ProductTest.PRODUCT_PRICE, apple.getPrice());
     }
 
     @Test
-    public void testIsCategoryCorrectWhenInitialize() {
+    void testIsCategoryCorrectWhenInitialize() {
         assertEquals(food, apple.getCategory());
     }
 }

@@ -1,4 +1,4 @@
-package main.DiscountType;
+package main.discounttype;
 
 public class Amount implements DiscountTypeInterface {
 

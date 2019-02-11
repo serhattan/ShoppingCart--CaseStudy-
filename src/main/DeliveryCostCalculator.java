@@ -1,7 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 public class DeliveryCostCalculator {
     private double costPerDelivery;
@@ -76,7 +76,7 @@ public class DeliveryCostCalculator {
     public void calculateFor(ShoppingCart shoppingCart) {
         int numberOfProducts = 0;
 
-        HashMap<Category, ArrayList<CartItem>> cartItems = shoppingCart.getCart();
+        Map<Category, ArrayList<CartItem>> cartItems = shoppingCart.getCart();
         int numberOfDevliveries = cartItems.size();
 
         for (ArrayList<CartItem> item: cartItems.values()) {

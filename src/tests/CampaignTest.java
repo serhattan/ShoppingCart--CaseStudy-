@@ -1,11 +1,10 @@
 package tests;
 
-import main.DiscountType.Amount;
-import main.DiscountType.DiscountTypeInterface;
-import main.DiscountType.Rate;
+import main.discounttype.Amount;
+import main.discounttype.DiscountTypeInterface;
+import main.discounttype.Rate;
 import main.Campaign;
 import main.Category;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,43 +19,35 @@ class CampaignTest {
     private DiscountTypeInterface discountTypeAmount;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         discountTypeRate = new Rate();
         discountTypeAmount = new Amount();
         food = new Category("food");
         campaign = new Campaign(food, CampaignTest.AMOUNT, CampaignTest.PRODUCT_COUNT, discountTypeRate);
     }
 
-    @AfterEach
-    public void tearDown() {
-        discountTypeRate = null;
-        discountTypeAmount = null;
-        food = null;
-        campaign = null;
-    }
-
     @Test
-    public void testIsCategoryCorrectWhenInitialize() {
+    void testIsCategoryCorrectWhenInitialize() {
         assertEquals(food, campaign.getCategory());
     }
 
     @Test
-    public void testIsAmountCorrectWhenInitialize() {
+    void testIsAmountCorrectWhenInitialize() {
         assertEquals(CampaignTest.AMOUNT, campaign.getAmount());
     }
 
     @Test
-    public void testIsProductCountCorrectWhenInitialize() {
+    void testIsProductCountCorrectWhenInitialize() {
         assertEquals(CampaignTest.PRODUCT_COUNT, campaign.getProductCount());
     }
 
     @Test
-    public void testIsDiscountTypeRateCorrectWhenInitialize() {
+    void testIsDiscountTypeRateCorrectWhenInitialize() {
         assertEquals(discountTypeRate, campaign.getDiscountType());
     }
 
     @Test
-    public void testIsDiscountTypeAmountCorrectWhenInitialize() {
+    void testIsDiscountTypeAmountCorrectWhenInitialize() {
         campaign = new Campaign(food, CampaignTest.AMOUNT, CampaignTest.PRODUCT_COUNT, discountTypeAmount);
 
         assertEquals(discountTypeAmount, campaign.getDiscountType());

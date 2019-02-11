@@ -1,6 +1,6 @@
 package main;
 
-import main.DiscountType.DiscountTypeInterface;
+import main.discounttype.DiscountTypeInterface;
 
 public class Campaign {
     private Category category;

@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ShoppingCart {
     private double totalAmount;
@@ -46,7 +47,7 @@ public class ShoppingCart {
      *
      * @return cart
      */
-    public HashMap<Category, ArrayList<CartItem>> getCart() {
+    public Map<Category, ArrayList<CartItem>> getCart() {
         return cart;
     }
 
@@ -165,9 +166,9 @@ public class ShoppingCart {
     }
 
     public void print() {
-        for(HashMap.Entry<Category, ArrayList<CartItem>> cart: cart.entrySet()) {
-            Category category = cart.getKey();
-            ArrayList<CartItem> cartItemList = cart.getValue();
+        for(HashMap.Entry<Category, ArrayList<CartItem>> shoppingCart: cart.entrySet()) {
+            Category category = shoppingCart.getKey();
+            ArrayList<CartItem> cartItemList = shoppingCart.getValue();
 
             System.out.println("\n\n-------- Category: " + category.getTitle() + " --------");
             for (CartItem cartItem: cartItemList) {

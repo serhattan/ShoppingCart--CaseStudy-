@@ -1,10 +1,9 @@
 package tests;
 
-import main.*;
+import main.Category;
 import main.DeliveryCostCalculator;
 import main.Product;
 import main.ShoppingCart;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +18,10 @@ class DeliveryCostCalculatorTest {
     private ShoppingCart cart;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         deliveryCostCalculator = new DeliveryCostCalculator(
-            DeliveryCostCalculatorTest.COST_PER_DELIVERY,
-            DeliveryCostCalculatorTest.COST_PER_PRODUCT
+                DeliveryCostCalculatorTest.COST_PER_DELIVERY,
+                DeliveryCostCalculatorTest.COST_PER_PRODUCT
         );
 
         food = new Category("food");
@@ -30,47 +29,40 @@ class DeliveryCostCalculatorTest {
         cart = new ShoppingCart();
     }
 
-    @AfterEach
-    public void tearDown() {
-        food = null;
-        apple = null;
-        cart = null;
-        deliveryCostCalculator = null;
-    }
-
     @Test
-    public void testIsCostPerDeliveryCorrectWhenInitialize() {
+    void testIsCostPerDeliveryCorrectWhenInitialize() {
         assertEquals(DeliveryCostCalculatorTest.COST_PER_DELIVERY, deliveryCostCalculator.getCostPerDelivery());
     }
 
     @Test
-    public void testIsCostPerProductCorrectWhenInitialize() {
+    void testIsCostPerProductCorrectWhenInitialize() {
         assertEquals(DeliveryCostCalculatorTest.COST_PER_PRODUCT, deliveryCostCalculator.getCostPerProduct());
     }
 
     @Test
-    public void testIsFixedCostCorrectWhenNotInitialize() {
+    void testIsFixedCostCorrectWhenNotInitialize() {
         assertEquals(DeliveryCostCalculator.FIXED_COST, deliveryCostCalculator.getFixedCost());
     }
 
     @Test
-    public void testIsFixedCostCorrectWhenInitialize() {
-        DeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculator(
-            DeliveryCostCalculatorTest.COST_PER_DELIVERY,
-            DeliveryCostCalculatorTest.COST_PER_PRODUCT,
-            2.99
+    void testIsFixedCostCorrectWhenInitialize() {
+        DeliveryCostCalculator deliveryCalculator = new DeliveryCostCalculator(
+                DeliveryCostCalculatorTest.COST_PER_DELIVERY,
+                DeliveryCostCalculatorTest.COST_PER_PRODUCT,
+                2.99
         );
 
-        assertEquals(2.99, deliveryCostCalculator.getFixedCost());
+        assertEquals(2.99, deliveryCalculator.getFixedCost());
     }
 
     @Test
-    public void testDeliveryCostCalculateForEmptyCart() {
+    void testDeliveryCostCalculateForEmptyCart() {
         deliveryCostCalculator.calculateFor(cart);
         assertEquals(deliveryCostCalculator.getFixedCost(), cart.getDeliveryCost());
     }
+
     @Test
-    public void testDeliveryCostCalculateForOneCategoryOneProduct() {
+    void testDeliveryCostCalculateForOneCategoryOneProduct() {
         cart.addItem(apple, 2);
 
         deliveryCostCalculator.calculateFor(cart);
@@ -78,7 +70,7 @@ class DeliveryCostCalculatorTest {
     }
 
     @Test
-    public void testDeliveryCostCalculateForOneCategoryTwoProduct() {
+    void testDeliveryCostCalculateForOneCategoryTwoProduct() {
         Product banana = new Product("banana", 12.0, food);
 
         cart.addItem(apple, 2);
@@ -90,25 +82,25 @@ class DeliveryCostCalculatorTest {
     }
 
     @Test
-    public void testDeliveryCostCalculateForTwoCategoryTwoProduct() {
+    void testDeliveryCostCalculateForTwoCategoryTwoProduct() {
         Category technology = new Category("technology");
         Product smartWatch = new Product("smartWatch", 1000.0, technology);
 
         cart.addItem(apple, 2);
         cart.addItem(smartWatch, 3);
 
-        DeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculator(
-            DeliveryCostCalculatorTest.COST_PER_DELIVERY,
-            DeliveryCostCalculatorTest.COST_PER_PRODUCT,
-            1.99
+        DeliveryCostCalculator deliveryCalculator = new DeliveryCostCalculator(
+                DeliveryCostCalculatorTest.COST_PER_DELIVERY,
+                DeliveryCostCalculatorTest.COST_PER_PRODUCT,
+                1.99
         );
-        deliveryCostCalculator.calculateFor(cart);
+        deliveryCalculator.calculateFor(cart);
 
         assertEquals(25.99, cart.getDeliveryCost());
     }
 
     @Test
-    public void testDeliveryCostCalculateForTwoCategoryThreeProduct() {
+    void testDeliveryCostCalculateForTwoCategoryThreeProduct() {
         Category technology = new Category("technology");
         Product smartWatch = new Product("smartWatch", 1000.0, technology);
         Product macbook = new Product("macbook", 7000.0, technology);
@@ -117,12 +109,12 @@ class DeliveryCostCalculatorTest {
         cart.addItem(smartWatch, 4);
         cart.addItem(macbook, 3);
 
-        DeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculator(
-            DeliveryCostCalculatorTest.COST_PER_DELIVERY,
-            DeliveryCostCalculatorTest.COST_PER_PRODUCT,
-            4.99
+        DeliveryCostCalculator deliveryCalculator = new DeliveryCostCalculator(
+                DeliveryCostCalculatorTest.COST_PER_DELIVERY,
+                DeliveryCostCalculatorTest.COST_PER_PRODUCT,
+                4.99
         );
-        deliveryCostCalculator.calculateFor(cart);
+        deliveryCalculator.calculateFor(cart);
 
         assertEquals(35.99, cart.getDeliveryCost());
     }

@@ -1,6 +1,6 @@
 package main;
 
-import main.DiscountType.DiscountTypeInterface;
+import main.discounttype.DiscountTypeInterface;
 
 public class Coupon {
     private double minCartAmount;

@@ -4,7 +4,6 @@ import main.CartItem;
 import main.Category;
 import main.Product;
 import main.ShoppingCart;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,41 +12,32 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ShoppingCartTest {
-    private Category food;
     private Product apple;
     private Product banana;
     private ShoppingCart shoppingCart;
 
     @BeforeEach
-    public void setUp() {
-        food = new Category("food");
+    void setUp() {
+        Category food = new Category("food");
         apple = new Product("apple", 10.0, food);
         banana = new Product("banana", 12.0, food);
         shoppingCart = new ShoppingCart();
     }
 
-    @AfterEach
-    public void tearDown() {
-        food = null;
-        apple = null;
-        banana = null;
-        shoppingCart = null;
-    }
-
     @Test
-    public void testIsCartEmptyWhenInitialize() {
+    void testIsCartEmptyWhenInitialize() {
         assertEquals(0, shoppingCart.getCart().size());
     }
 
     @Test
-    public void testIsProductAdded() {
+    void testIsProductAdded() {
         shoppingCart.addItem(apple, 1);
 
         assertEquals(1, shoppingCart.getCart().size());
     }
 
     @Test
-    public void testIsProductQuantityCorrect() {
+    void testIsProductQuantityCorrect() {
         shoppingCart.addItem(apple, 4);
 
         CartItem item = shoppingCart.getCart().get(apple.getCategory()).get(0);
@@ -55,19 +45,19 @@ class ShoppingCartTest {
         assertEquals(4, item.getQuantity());
     }
 
-    private void add3AppleAnd2BananaIntoCart() {
+    private void addThreeAppleAndTwoBananaIntoCart() {
         shoppingCart.addItem(apple, 3);
         shoppingCart.addItem(banana, 2);
     }
 
     @Test
-    public void testIsCategorizationCorrect() {
-        this.add3AppleAnd2BananaIntoCart();
+    void testIsCategorizationCorrect() {
+        this.addThreeAppleAndTwoBananaIntoCart();
         assertEquals(1, shoppingCart.getCart().size());
     }
 
     @Test
-    public void testAddNewCategoryInCart() {
+    void testAddNewCategoryInCart() {
         Category technology = new Category("technology");
         Product phone = new Product("phone", 3000.0, technology);
 
@@ -78,8 +68,8 @@ class ShoppingCartTest {
     }
 
     @Test
-    public void testAddExistProductAndCheckQuantity() {
-        this.add3AppleAnd2BananaIntoCart();
+    void testAddExistProductAndCheckQuantity() {
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.addItem(apple, 5);
 
         CartItem item = shoppingCart.getCart().get(apple.getCategory()).get(0);
@@ -88,12 +78,12 @@ class ShoppingCartTest {
     }
 
     @Test
-    public void testAddExistProductAndCheckCategorySize() {
-        this.add3AppleAnd2BananaIntoCart();
+    void testAddExistProductAndCheckCategorySize() {
+        this.addThreeAppleAndTwoBananaIntoCart();
         shoppingCart.addItem(apple, 5);
 
-         ArrayList<CartItem> categoryProductList = shoppingCart.getCart().get(apple.getCategory());
+        ArrayList<CartItem> categoryProductList = shoppingCart.getCart().get(apple.getCategory());
 
-         assertEquals(2, categoryProductList.size());
+        assertEquals(2, categoryProductList.size());
     }
 }

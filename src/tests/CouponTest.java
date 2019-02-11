@@ -1,10 +1,9 @@
 package tests;
 
-import main.DiscountType.Amount;
-import main.DiscountType.DiscountTypeInterface;
-import main.DiscountType.Rate;
+import main.discounttype.Amount;
+import main.discounttype.DiscountTypeInterface;
+import main.discounttype.Rate;
 import main.Coupon;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,37 +17,30 @@ class CouponTest {
     private Coupon coupon;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         discountTypeRate = new Rate();
         discountTypeAmount = new Amount();
         coupon = new Coupon(CouponTest.MIN_CART_AMOUNT, CouponTest.AMOUNT, discountTypeRate);
 
     }
 
-    @AfterEach
-    public void tearDown() {
-        discountTypeRate = null;
-        discountTypeAmount = null;
-        coupon = null;
-    }
-
     @Test
-    public void testIsMinCartAmountCorrectWhenInitialize() {
+    void testIsMinCartAmountCorrectWhenInitialize() {
         assertEquals(CouponTest.MIN_CART_AMOUNT, coupon.getMinCartAmount());
     }
 
     @Test
-    public void testIsAmountCorrectWhenInitialize() {
+    void testIsAmountCorrectWhenInitialize() {
         assertEquals(CouponTest.AMOUNT, coupon.getAmount());
     }
 
     @Test
-    public void testIsDiscountTypeRateCorrectWhenInitialize() {
+    void testIsDiscountTypeRateCorrectWhenInitialize() {
         assertEquals(discountTypeRate, coupon.getDiscountType());
     }
 
     @Test
-    public void testIsDiscountTypeAmountCorrectWhenInitialize() {
+    void testIsDiscountTypeAmountCorrectWhenInitialize() {
         coupon = new Coupon(CouponTest.MIN_CART_AMOUNT, CouponTest.AMOUNT, discountTypeAmount);
 
         assertEquals(discountTypeAmount, coupon.getDiscountType());
